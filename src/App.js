@@ -6,6 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import LocationList from './components/LocationList';
 import './App.css';
+import ForecastExtended from './components/ForecastExtended';
 
 const cities = [
    "Zacatecas",
@@ -23,11 +24,26 @@ const cities = [
 ];
 
 class App extends Component {
+   constructor(){
+      super();
+      this.state = {
+         city: null,
+      }
+   }
+
    handleSelectionLocation = city => {
+
+
+      this.setState({
+         city,
+      });
       console.log("handleSelectionLocation::"+city)   
    };
 
   render() {
+     const { city } = this.state;
+
+
     return (
       <Grid>
          <Row>
@@ -45,7 +61,12 @@ class App extends Component {
          </Col>
          <Col xs={12} md={6}>
             <Paper elevation={4}>
-                <div className="details"></div>     
+                   <div className="details">
+                      { 
+                         city && <ForecastExtended city={ city }></ForecastExtended> 
+                      }
+
+               </div>     
             </Paper>
          </Col>
          </Row>
